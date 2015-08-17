@@ -7,6 +7,9 @@ var knockAudio = new Audio('Knock.mp3');
 var matchAudio = new Audio('match.mp3');
 var arrSquares;
 var gameOver;
+var multPossible = false;
+var lastUsed;
+var lastPlayer="null";
 
 function newGame()
 {
@@ -158,16 +161,19 @@ function movePiece(idName, XCoor, YCoor)
         
         if(((arrSquares[fromRow][fromCol].type)!='empty')&&(arrSquares[toRow][toCol].type=='empty') && (((toCol+toRow)%2)==0))
         {
-            if((Math.abs(toRow-fromRow)<2)&&(Math.abs(toCol-fromCol)<2))
+            if((Math.abs(toRow-fromRow)<2)&&(Math.abs(toCol-fromCol)<2)&&(fromType.substring(0,1)!=lastPlayer.substring(0,1)))
             {
                 if(!(((fromType=='red')&&(toRow<fromRow))||((fromType=='black')&&(toRow>fromRow))))
                 {
                     arrSquares[toRow][toCol].type = arrSquares[fromRow][fromCol].type;
                     arrSquares[fromRow][fromCol].type = 'empty';
                     playSound('Knock');
+                    lastUsed = toCoorString;
+                    lastPlayer = arrSquares[toRow][toCol].type;
+                    multPossible=false;
                 }
             }
-            else if((Math.abs(toRow-fromRow)<3)&&(Math.abs(toCol-fromCol)<3)&&((avType=='red')||(avType=='redK')||(avType=='black')||(avType=='blackK')))
+            else if(((multPossible&&(lastUsed==(fromCol+'a'+fromRow)))||((fromType).substring(0,1)!=lastPlayer.substring(0,1)))&&(Math.abs(toRow-fromRow)<3)&&(Math.abs(toCol-fromCol)<3)&&((avType=='red')||(avType=='redK')||(avType=='black')||(avType=='blackK')))
             {   
                 if(fromType=='black'||fromType=='blackK')
                 {
@@ -178,6 +184,9 @@ function movePiece(idName, XCoor, YCoor)
                     arrSquares[toRow][toCol].type = arrSquares[fromRow][fromCol].type;
                     arrSquares[fromRow][fromCol].type = 'empty';
                     playSound('Knock');
+                    lastUsed = toCoorString;
+                    lastPlayer = arrSquares[toRow][toCol].type;
+                    multPossible = true;
                 }
                 else
                 {
@@ -188,6 +197,9 @@ function movePiece(idName, XCoor, YCoor)
                     arrSquares[toRow][toCol].type = arrSquares[fromRow][fromCol].type;
                     arrSquares[fromRow][fromCol].type = 'empty';
                     playSound('Knock');
+                    lastUsed = toCoorString;
+                    lastPlayer = arrSquares[toRow][toCol].type;
+                    multPossible=true;
                 }
             }
         }
