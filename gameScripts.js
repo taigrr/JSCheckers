@@ -1,14 +1,8 @@
 var selected = null, x_pos = 0, y_pos = 0, x_elem = 0, y_elem = 0;
-var locationCount=1;
-var isMute = false;
-var isPaused = false;
-var kingAudio = new Audio('King.mp3');
-var knockAudio = new Audio('Knock.mp3');
-var matchAudio = new Audio('match.mp3');
-var arrSquares;
-var gameOver;
-var multPossible = false;
-var lastUsed;
+var locationCount=1; 
+var isMute = false, isPaused = false, multPossible = false;
+var kingAudio = new Audio('King.mp3'), knockAudio = new Audio('Knock.mp3'), matchAudio = new Audio('match.mp3');
+var arrSquares, gameOver, lastUsed;
 var lastPlayer="null";
 
 function newGame()
@@ -42,7 +36,6 @@ function drawBoard()
             ctx.fillRect(i,w,100,100);
         }
     }
-    
     ctx.strokeStyle = "#98999A";
     for(var i=100;i<=800;i+=100)
     {
@@ -62,7 +55,6 @@ function fillBoard()
 {
     loadArray();
     var filler = "";
-    
     for(var i=0; i<8; i++)
     {
         for(var w=0; w<8; w++)
@@ -149,15 +141,11 @@ function movePiece(idName, XCoor, YCoor)
 {
     if(!gameOver)
     {
-        var fromRow= parseInt(idName.substring(0,1));
-        var fromCol= parseInt(idName.substring(2,3));
+        var fromRow= parseInt(idName.substring(0,1)), fromCol= parseInt(idName.substring(2,3));
         var toCoorString = determineSquare(XCoor,YCoor);
-        var toRow = parseInt(toCoorString.substring(2,3));
-        var toCol = parseInt(toCoorString.substring(0,1));
-        var avRow = Math.floor((toRow+fromRow)/2);
-        var avCol = Math.floor((toCol+fromCol)/2);
-        var avType = arrSquares[avRow][avCol].type;
-        var fromType =arrSquares[fromRow][fromCol].type;
+        var toRow = parseInt(toCoorString.substring(2,3)), toCol = parseInt(toCoorString.substring(0,1));
+        var avRow = Math.floor((toRow+fromRow)/2), avCol = Math.floor((toCol+fromCol)/2);
+        var avType = arrSquares[avRow][avCol].type, fromType =arrSquares[fromRow][fromCol].type;
         
         if(((arrSquares[fromRow][fromCol].type)!='empty')&&(arrSquares[toRow][toCol].type=='empty') && (((toCol+toRow)%2)==0))
         {
@@ -177,7 +165,6 @@ function movePiece(idName, XCoor, YCoor)
             {   
                 if((!(((fromType=='red')&&(toRow<fromRow))||((fromType=='black')&&(toRow>fromRow))))||(multPossible&&(lastUsed==(fromCol+'a'+fromRow))))
                 {
-        
                     if(fromType=='black'||fromType=='blackK')
                     {
                         if(avType=='red'||avType=='redK')
@@ -204,7 +191,6 @@ function movePiece(idName, XCoor, YCoor)
                         lastPlayer = arrSquares[toRow][toCol].type;
                         multPossible=true;
                     }
-            
                 }
             }
         }
@@ -220,7 +206,6 @@ function movePiece(idName, XCoor, YCoor)
 
 function determineSquare(XCoor, YCoor)
 {
-    
     return ((Math.floor(XCoor/100))+'a'+Math.floor(YCoor/100));
 }
 
@@ -253,8 +238,7 @@ function replacePieces()
 }
 function checkWin()
 {
-    var redCount=0;
-    var blackCount=0;
+    var redCount=0, blackCount=0;
     for(var i=0; i<8; i++)
     {
         for(var w=0; w<8; w++)
