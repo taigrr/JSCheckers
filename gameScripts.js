@@ -175,31 +175,36 @@ function movePiece(idName, XCoor, YCoor)
             }
             else if(((multPossible&&(lastUsed==(fromCol+'a'+fromRow)))||((fromType).substring(0,1)!=lastPlayer.substring(0,1)))&&(Math.abs(toRow-fromRow)<3)&&(Math.abs(toCol-fromCol)<3)&&((avType=='red')||(avType=='redK')||(avType=='black')||(avType=='blackK')))
             {   
-                if(fromType=='black'||fromType=='blackK')
+                if((!(((fromType=='red')&&(toRow<fromRow))||((fromType=='black')&&(toRow>fromRow))))||(multPossible&&(lastUsed==(fromCol+'a'+fromRow))))
                 {
-                    if(avType=='red'||avType=='redK')
+        
+                    if(fromType=='black'||fromType=='blackK')
                     {
-                        arrSquares[avRow][avCol].type='empty';
+                        if(avType=='red'||avType=='redK')
+                        {
+                            arrSquares[avRow][avCol].type='empty';
+                        }
+                        arrSquares[toRow][toCol].type = arrSquares[fromRow][fromCol].type;
+                        arrSquares[fromRow][fromCol].type = 'empty';
+                        playSound('Knock');
+                        lastUsed = toCoorString;
+                        lastPlayer = arrSquares[toRow][toCol].type;
+                        multPossible = true;
                     }
-                    arrSquares[toRow][toCol].type = arrSquares[fromRow][fromCol].type;
-                    arrSquares[fromRow][fromCol].type = 'empty';
-                    playSound('Knock');
-                    lastUsed = toCoorString;
-                    lastPlayer = arrSquares[toRow][toCol].type;
-                    multPossible = true;
-                }
-                else
-                {
-                   if(avType=='black'||avType=='blackK')
+                    else
                     {
-                        arrSquares[avRow][avCol].type='empty';
-                    } 
-                    arrSquares[toRow][toCol].type = arrSquares[fromRow][fromCol].type;
-                    arrSquares[fromRow][fromCol].type = 'empty';
-                    playSound('Knock');
-                    lastUsed = toCoorString;
-                    lastPlayer = arrSquares[toRow][toCol].type;
-                    multPossible=true;
+                       if(avType=='black'||avType=='blackK')
+                        {
+                            arrSquares[avRow][avCol].type='empty';
+                        } 
+                        arrSquares[toRow][toCol].type = arrSquares[fromRow][fromCol].type;
+                        arrSquares[fromRow][fromCol].type = 'empty';
+                        playSound('Knock');
+                        lastUsed = toCoorString;
+                        lastPlayer = arrSquares[toRow][toCol].type;
+                        multPossible=true;
+                    }
+            
                 }
             }
         }
