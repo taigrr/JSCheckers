@@ -1,8 +1,8 @@
 var selected = null, x_pos = 0, y_pos = 0, x_elem = 0, y_elem = 0;
 var locationCount=1; 
-var isMute = false, isPaused = false, multPossible = false;
+var isMute = false;
 var kingAudio = new Audio('King.mp3'), knockAudio = new Audio('Knock.mp3'), matchAudio = new Audio('match.mp3');
-var arrSquares, gameOver, lastUsed;
+var arrSquares, gameOver, lastUsed, multPossible;
 var lastPlayer="null";
 
 function newGame()
@@ -12,6 +12,10 @@ function newGame()
     fillBoard();
     makePiecesDraggable();
     makeMouseUpDetectable();
+    lastPlayer="null";
+    locationCount=1;
+    isMute = false;
+    multPossible = false;
 }
 
 function drawBoard()
