@@ -165,7 +165,7 @@ function movePiece(idName, XCoor, YCoor)
                     multPossible=false;
                 }
             }
-            else if(((multPossible&&(lastUsed==(fromCol+'a'+fromRow)))||((fromType).substring(0,1)!=lastPlayer.substring(0,1)))&&(Math.abs(toRow-fromRow)<3)&&(Math.abs(toCol-fromCol)<3)&&((avType=='red')||(avType=='redK')||(avType=='black')||(avType=='blackK')))
+            else if(((multPossible&&(lastUsed==(fromCol+'a'+fromRow))&&avType.substring(0,1)!=fromType.substring(0,1))||((fromType).substring(0,1)!=lastPlayer.substring(0,1)))&&(Math.abs(toRow-fromRow)<3)&&(Math.abs(toCol-fromCol)<3)&&((avType=='red')||(avType=='redK')||(avType=='black')||(avType=='blackK')))
             {   
                 if((!(((fromType=='red')&&(toRow<fromRow))||((fromType=='black')&&(toRow>fromRow))))||(multPossible&&(lastUsed==(fromCol+'a'+fromRow))))
                 {
